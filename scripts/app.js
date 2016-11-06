@@ -16,6 +16,7 @@ var sceneObj = (function(){
             new THREE.BoxGeometry(25,25,25),
             new THREE.MeshBasicMaterial({color: 0xff0000})
         );
+        cube.name = 'cube';
         scene.add(cube);
 
         render();
