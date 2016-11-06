@@ -1,4 +1,4 @@
-(function(){
+var sceneObj = (function(){
 
     var scene, camera, renderer, cube;
 
@@ -27,5 +27,7 @@
     }
 
     window.onLoad = initScene();
+
+    return scene;
 
 })();
