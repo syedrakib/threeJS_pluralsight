@@ -1,6 +1,6 @@
 var sceneObj = (function(){
 
-    var scene, camera, renderer, cube;
+    var scene, camera, renderer, cube, sphere;
     var stats;
 
     function initScene(){
@@ -20,6 +20,13 @@ var sceneObj = (function(){
         cube.name = 'cube';
         scene.add(cube);
 
+        sphere = new THREE.Mesh(
+            new THREE.SphereGeometry(15,15,15),
+            new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe:true})
+        );
+        sphere.name = 'sphere';
+        scene.add(sphere);
+
         addStatsPanel();
 
         render();
@@ -36,11 +43,17 @@ var sceneObj = (function(){
 
     function render(){
         renderer.render(scene, camera);
+
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
         cube.scale.x += 0.001;
         cube.scale.y += 0.001;
+
+        sphere.rotation.x += 0.01;
+        sphere.rotation.y += 0.01;
+
         stats.update();
+
         requestAnimationFrame(render);
     }
 
