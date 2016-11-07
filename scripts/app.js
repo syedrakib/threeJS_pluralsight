@@ -1,6 +1,7 @@
 var sceneObj = (function(){
 
     var scene, camera, renderer, cube;
+    var stats;
 
     function initScene(){
         scene = new THREE.Scene();
@@ -19,7 +20,18 @@ var sceneObj = (function(){
         cube.name = 'cube';
         scene.add(cube);
 
+        addStatsPanel();
+
         render();
+    }
+
+    function addStatsPanel(){
+        stats = new Stats();
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        document.body.appendChild(stats.domElement);
     }
 
     function render(){
@@ -28,6 +40,7 @@ var sceneObj = (function(){
         cube.rotation.y += 0.01;
         cube.scale.x += 0.001;
         cube.scale.y += 0.001;
+        stats.update();
         requestAnimationFrame(render);
     }
 
