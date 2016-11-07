@@ -46,9 +46,12 @@ var sceneObj = (function(){
         myGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
         myGeometry.vertices.push(new THREE.Vector3(1.0, -1.0, 0.0));
         myGeometry.faces.push(new THREE.Face3(0, 1, 2));
+        myGeometry.faces[0].vertexColors[0] = new THREE.Color(0xff0000);
+        myGeometry.faces[0].vertexColors[1] = new THREE.Color(0x00ff00);
+        myGeometry.faces[0].vertexColors[2] = new THREE.Color(0x0000ff);
 
         var myMaterial = new THREE.MeshBasicMaterial({
-            color: 0x0000ff
+            vertexColors: THREE.VertexColors
         })
 
         triangle = new THREE.Mesh(myGeometry, myMaterial);
