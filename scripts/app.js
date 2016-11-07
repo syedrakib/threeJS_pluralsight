@@ -33,6 +33,7 @@ var sceneObj = (function(){
             new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true})
         );
         cube.name = 'cube';
+        cube.position.x = -40;
         scene.add(cube);
     }
 
@@ -42,6 +43,7 @@ var sceneObj = (function(){
             new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe:true})
         );
         sphere.name = 'sphere';
+        sphere.position.x = -15;
         scene.add(sphere);
     }
 
@@ -63,6 +65,7 @@ var sceneObj = (function(){
         triangle = new THREE.Mesh(myGeometry, myMaterial);
         triangle.scale.x = 10;
         triangle.scale.y = 10;
+        triangle.position.x = 15;
         scene.add(triangle);
     }
 
@@ -73,6 +76,8 @@ var sceneObj = (function(){
             'models/collada/monster/monster.dae',
             function(collada){
                 monster = collada.scene;
+                monster.position.y = -10; // adjusting the monster's position on the screen
+                monster.position.x = 40;
                 scene.add(monster);
             }
         )
