@@ -1,11 +1,15 @@
 var sceneObj = (function(){
 
-    var scene, camera, renderer;
-    var cube, sphere, triangle;
+    var scene, light, camera, renderer;
+    var cube, sphere, triangle, monster;
     var stats;
 
     function initScene(){
         scene = new THREE.Scene();
+
+        // Light is required to illuminate non-basic materials - like 3rd party models, textures, etc
+        light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
 
         camera = new THREE.PerspectiveCamera(35, window.innerWidth/window.innerHeight , 1, 1000);
         camera.position.z = 100;
@@ -17,6 +21,7 @@ var sceneObj = (function(){
         addCube();
         addSphere();
         addTriangle();
+        addMonster();
 
         addStatsPanel();
         render();
@@ -61,6 +66,18 @@ var sceneObj = (function(){
         scene.add(triangle);
     }
 
+    function addMonster(){
+        var loader = new THREE.ColladaLoader();
+        loader.options.convertUpAxis = true;    // To callibrate the up-axis of this model with the screen
+        loader.load(
+            'models/collada/monster/monster.dae',
+            function(collada){
+                monster = collada.scene;
+                scene.add(monster);
+            }
+        )
+    }
+
     function addStatsPanel(){
         stats = new Stats();
         stats.setMode(0);
@@ -82,6 +99,12 @@ var sceneObj = (function(){
         sphere.rotation.y += 0.01;
 
         triangle.rotation.y += 0.01;
+
+        // Rotate the monster if/after the monster variable has been successfully instantiated.
+        // The monster variable is instantiated inside the onLoad callback of the ColladaLoader's load() function.
+        if (typeof monster !== 'undefined') {
+            monster.rotation.y += 0.02;
+        }
 
         stats.update();
 
