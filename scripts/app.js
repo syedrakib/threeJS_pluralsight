@@ -1,6 +1,6 @@
 var sceneObj = (function(){
 
-    var scene, camera, renderer, cube, sphere;
+    var scene, camera, renderer, cube, sphere, triangle;
     var stats;
 
     function initScene(){
@@ -26,6 +26,16 @@ var sceneObj = (function(){
         );
         sphere.name = 'sphere';
         scene.add(sphere);
+
+        var myGeometry = new THREE.Geometry();
+        myGeometry.vertices.push(new THREE.Vector3(0.0, 1.0, 0.0));
+        myGeometry.vertices.push(new THREE.Vector3(-1.0, -1.0, 0.0));
+        myGeometry.vertices.push(new THREE.Vector3(1.0, -1.0, 0.0));
+        myGeometry.faces.push(new THREE.Face3(0, 1, 2));
+        triangle = new THREE.Mesh(myGeometry);
+        triangle.scale.x = 10;
+        triangle.scale.y = 10;
+        scene.add(triangle);
 
         addStatsPanel();
 
