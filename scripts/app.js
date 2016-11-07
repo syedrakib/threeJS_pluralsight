@@ -51,7 +51,8 @@ var sceneObj = (function(){
         myGeometry.faces[0].vertexColors[2] = new THREE.Color(0x0000ff);
 
         var myMaterial = new THREE.MeshBasicMaterial({
-            vertexColors: THREE.VertexColors
+            vertexColors: THREE.VertexColors,
+            side: THREE.DoubleSide // DoubleSide required to render both front-&-rear faces when the flat triangle is rotated
         })
 
         triangle = new THREE.Mesh(myGeometry, myMaterial);
@@ -79,6 +80,8 @@ var sceneObj = (function(){
 
         sphere.rotation.x += 0.01;
         sphere.rotation.y += 0.01;
+
+        triangle.rotation.y += 0.01;
 
         stats.update();
 
