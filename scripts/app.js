@@ -1,7 +1,7 @@
 var sceneObj = (function(){
 
     var scene, light, camera, renderer;
-    var cube, sphere, triangle, monster;
+    var cube, sphere, triangle, monster, monkey;
     var stats;
 
     function initScene(){
@@ -22,6 +22,7 @@ var sceneObj = (function(){
         addSphere();
         addTriangle();
         addMonster();
+        addMonkey();
 
         addStatsPanel();
         render();
@@ -83,6 +84,21 @@ var sceneObj = (function(){
         )
     }
 
+    function addMonkey(){
+        var loader = new THREE.JSONLoader();
+        loader.load("models/monkey.js", function(geometry, materials) {
+            var monkeyMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffff00,
+                wireframe: true
+            });
+            monkey = new THREE.Mesh(geometry, monkeyMaterial);
+            monkey.scale.x = 10;
+            monkey.scale.y = 10;
+            monkey.scale.z = 10;
+            scene.add(monkey);
+        });
+    }
+
     function addStatsPanel(){
         stats = new Stats();
         stats.setMode(0);
@@ -109,6 +125,9 @@ var sceneObj = (function(){
         // The monster variable is instantiated inside the onLoad callback of the ColladaLoader's load() function.
         if (typeof monster !== 'undefined') {
             monster.rotation.y += 0.02;
+        }
+        if (typeof monkey !== 'undefined') {
+            monkey.rotation.y -= 0.02;
         }
 
         stats.update();
