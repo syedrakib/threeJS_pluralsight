@@ -1,7 +1,8 @@
 var sceneObj = (function(){
 
-    var scene, light, camera, renderer;
-    var cube, sphere, triangle, monster, monkey;
+    var scene, light, camera, renderer; // environment items
+    var cube, sphere, triangle;         // ThreeJS primitive objects
+    var monster, monkey;                // objects loaded from 3rd party models
     var stats;
 
     function initScene(){
@@ -21,8 +22,8 @@ var sceneObj = (function(){
         addCube();
         addSphere();
         addTriangle();
-        addMonster();
-        addMonkey();
+        addMonsterViaColladaLoader();
+        addMonkeyViaJSONLoader();
 
         addStatsPanel();
         render();
@@ -70,7 +71,7 @@ var sceneObj = (function(){
         scene.add(triangle);
     }
 
-    function addMonster(){
+    function addMonsterViaColladaLoader(){
         var loader = new THREE.ColladaLoader();
         loader.options.convertUpAxis = true;    // To callibrate the up-axis of this model with the screen
         loader.load(
@@ -84,7 +85,7 @@ var sceneObj = (function(){
         )
     }
 
-    function addMonkey(){
+    function addMonkeyViaJSONLoader(){
         var loader = new THREE.JSONLoader();
         loader.load("models/monkey.js", function(geometry, materials) {
             var monkeyMaterial = new THREE.MeshBasicMaterial({
