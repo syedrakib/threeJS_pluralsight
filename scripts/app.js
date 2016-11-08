@@ -32,7 +32,10 @@ var sceneObj = (function(){
     function addCube(){
         cube = new THREE.Mesh(
             new THREE.BoxGeometry(25,25,25),
-            new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true})
+            new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                map: THREE.ImageUtils.loadTexture('content/crate.gif')
+            })
         );
         cube.name = 'cube';
         cube.position.x = -40;
