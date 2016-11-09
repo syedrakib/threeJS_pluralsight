@@ -1,5 +1,7 @@
 var sceneObj = (function(){
 
+    "use strict";
+
     // environment items
     var scene, light, camera, renderer, controls;
     // ThreeJS primitive objects
