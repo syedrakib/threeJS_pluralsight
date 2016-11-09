@@ -1,8 +1,12 @@
 var sceneObj = (function(){
-    
-    var scene, light, camera, renderer, controls;   // environment items
-    var cube, sphere, triangle;         // ThreeJS primitive objects
-    var monster, monkey;                // objects loaded from 3rd party models
+
+    // environment items
+    var scene, light, camera, renderer, controls;
+    // ThreeJS primitive objects
+    var cube, sphere, triangle;
+    // objects loaded from 3rd party models
+    var monster, monkey;
+    // other helpful utilities
     var stats;
 
     function initScene(){
