@@ -1,6 +1,6 @@
 var sceneObj = (function(){
-
-    var scene, light, camera, renderer; // environment items
+    
+    var scene, light, camera, renderer, controls;   // environment items
     var cube, sphere, triangle;         // ThreeJS primitive objects
     var monster, monkey;                // objects loaded from 3rd party models
     var stats;
@@ -18,6 +18,9 @@ var sceneObj = (function(){
         renderer = window.WebGLRenderingContext ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("webgl-container").appendChild(renderer.domElement);
+
+        controls = new THREE.OrbitControls(camera);
+        controls.addEventListener('change', render);
 
         addCube();
         addSphere();
@@ -115,24 +118,29 @@ var sceneObj = (function(){
     function render(){
         renderer.render(scene, camera);
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        cube.scale.x += 0.001;
-        cube.scale.y += 0.001;
-
-        sphere.rotation.x += 0.01;
-        sphere.rotation.y += 0.01;
-
-        triangle.rotation.y += 0.01;
-
-        // Rotate the monster if/after the monster variable has been successfully instantiated.
-        // The monster variable is instantiated inside the onLoad callback of the ColladaLoader's load() function.
-        if (typeof monster !== 'undefined') {
-            monster.rotation.y += 0.02;
-        }
-        if (typeof monkey !== 'undefined') {
-            monkey.rotation.y -= 0.02;
-        }
+        /*
+            Stop all animation of objects.
+            Screen events will re-render the scene.
+            If animations are also incrementally occurring at every scene render, it will multiply the animations by several factors.
+        */
+        // cube.rotation.x += 0.01;
+        // cube.rotation.y += 0.01;
+        // cube.scale.x += 0.001;
+        // cube.scale.y += 0.001;
+        //
+        // sphere.rotation.x += 0.01;
+        // sphere.rotation.y += 0.01;
+        //
+        // triangle.rotation.y += 0.01;
+        //
+        // // Rotate the monster if/after the monster variable has been successfully instantiated.
+        // // The monster variable is instantiated inside the onLoad callback of the ColladaLoader's load() function.
+        // if (typeof monster !== 'undefined') {
+        //     monster.rotation.y += 0.02;
+        // }
+        // if (typeof monkey !== 'undefined') {
+        //     monkey.rotation.y -= 0.02;
+        // }
 
         stats.update();
 
