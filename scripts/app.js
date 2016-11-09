@@ -41,6 +41,7 @@ var sceneObj = (function(){
         addMonkeyViaJSONLoader();
 
         addPhysijsBox();
+        addPhysijsGround();
 
         addStatsPanel();
         render();
@@ -135,6 +136,23 @@ var sceneObj = (function(){
         physijsBox.position.set(0,30,10);
         physijsBox.rotation.set(0,50,90);
         scene.add(physijsBox);
+    }
+
+    function addPhysijsGround(){
+        var myGroundMaterial = Physijs.createMaterial(
+            new THREE.MeshBasicMaterial({
+                color: 0x008888
+            }),
+            0, // friction
+            0.4 // restitution / bounciness
+        );
+        physijsGround = new Physijs.BoxMesh(
+            new THREE.CubeGeometry(150, 3, 150),
+            myGroundMaterial,
+            0
+        );
+        physijsGround.position.y = -15;
+        scene.add(physijsGround);
     }
 
     function addStatsPanel(){
