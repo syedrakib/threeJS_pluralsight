@@ -2,17 +2,23 @@ var sceneObj = (function(){
 
     "use strict";
 
+    Physijs.scripts.worker = "scripts/physijs_worker.js";
+    Physijs.scripts.ammo = "ammo.js";
+
     // environment items
     var scene, light, camera, renderer, controls;
     // ThreeJS primitive objects
     var cube, sphere, triangle;
     // objects loaded from 3rd party models
     var monster, monkey;
+    // objects for PhysiJS simulation
+    var physijsBox, physijsGround
     // other helpful utilities
     var stats;
 
     function initScene(){
-        scene = new THREE.Scene();
+        scene = new Physijs.Scene();
+        scene.setGravity = new THREE.Vector3(0, -50, 0);
 
         // Light is required to illuminate non-basic materials - like 3rd party models, textures, etc
         light = new THREE.AmbientLight(0xffffff);
@@ -33,6 +39,8 @@ var sceneObj = (function(){
         addTriangle();
         addMonsterViaColladaLoader();
         addMonkeyViaJSONLoader();
+
+        addPhysijsBox();
 
         addStatsPanel();
         render();
@@ -112,6 +120,23 @@ var sceneObj = (function(){
         });
     }
 
+    function addPhysijsBox(){
+        var myBoxMaterial = Physijs.createMaterial(
+            new THREE.MeshBasicMaterial({
+                color: 0xff00ff
+            }),
+            0,  // friction
+            0.8 // restitution / bounciness
+        );
+        physijsBox = new Physijs.BoxMesh(
+            new THREE.CubeGeometry(15,15,15),
+            myBoxMaterial
+        );
+        physijsBox.position.set(0,30,10);
+        physijsBox.rotation.set(0,50,90);
+        scene.add(physijsBox);
+    }
+
     function addStatsPanel(){
         stats = new Stats();
         stats.setMode(0);
@@ -122,6 +147,7 @@ var sceneObj = (function(){
     }
 
     function render(){
+        scene.simulate(); // to kick-off the physiJS physics engine
         renderer.render(scene, camera);
 
         /*
