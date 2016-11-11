@@ -122,15 +122,21 @@ var sceneObj = (function(){
     }
 
     function addPhysijsBox(){
+        var myBoxGeometry = new THREE.CubeGeometry(15,15,15);
+        for (var i=0; i<myBoxGeometry.faces.length; i+=2) {
+            var colorShade = Math.random() * 0xffffff;
+            myBoxGeometry.faces[i].color.setHex(colorShade);
+            myBoxGeometry.faces[i+1].color.setHex(colorShade);
+        }
         var myBoxMaterial = Physijs.createMaterial(
             new THREE.MeshBasicMaterial({
-                color: 0xff00ff
+                vertexColors: THREE.FaceColors
             }),
             0,  // friction
             0.8 // restitution / bounciness
         );
         physijsBox = new Physijs.BoxMesh(
-            new THREE.CubeGeometry(15,15,15),
+            myBoxGeometry, 
             myBoxMaterial
         );
         physijsBox.position.set(0,30,10);
